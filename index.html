@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>股民曆 StockDaily</title>
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Apply the saved theme before first paint; main.ts validates it against #theme. -->
+    <script>
+      try { if (localStorage.theme) document.documentElement.dataset.theme = localStorage.theme } catch {}
+    </script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-left">
+        <button id="prev" type="button" aria-label="前一天">‹</button>
+        <span class="pick">
+          <button id="pick-open" type="button" aria-label="選擇日期">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" />
+            </svg>
+          </button>
+          <!-- Opened by #pick-open via showPicker(); kept rendered so the picker anchors to the button. -->
+          <input id="pick" type="date" min="1900-01-01" max="2100-12-31" tabindex="-1" aria-hidden="true" />
+        </span>
+      </div>
+      <h1>股民曆</h1>
+      <div class="topbar-right">
+        <span class="theme">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a9 9 0 0 0 0 18c1 0 1.6-.7 1.6-1.6 0-1.1-1-1.4-1-2.4 0-.9.7-1.5 1.6-1.5H16a5 5 0 0 0 5-5c0-4.1-4-7.5-9-7.5z" />
+            <circle cx="7.5" cy="11" r="1" /><circle cx="10" cy="7" r="1" /><circle cx="15" cy="7.5" r="1" />
+          </svg>
+          <!-- data-font: Google Fonts family, loaded only when that theme is chosen. -->
+          <select id="theme" aria-label="主題">
+            <option value="">預設</option>
+            <option value="handwriting" data-font="LXGW+WenKai+TC:wght@400;700">手寫風</option>
+            <option value="tech">科技風</option>
+            <option value="retro" data-font="Noto+Serif+TC:wght@400;700">復古風</option>
+            <option value="temple" data-font="Noto+Serif+TC:wght@400;700">宮廟風</option>
+            <option value="kuaikuai" data-font="Huninn">乖乖風</option>
+          </select>
+        </span>
+        <button id="next" type="button" aria-label="後一天">›</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="date" aria-live="polite" aria-atomic="true">
+        <div class="date-head">
+          <span><b id="month"></b> 月</span>
+          <span id="weekday" class="accent"></span>
+        </div>
+        <div id="day" class="day accent"></div>
+        <div id="lunar" class="lunar"></div>
+        <button id="today" type="button" hidden>回今天</button>
+      </section>
+
+      <section class="fortune">
+        <svg viewBox="0 0 64 64" width="72" height="72" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+            <path d="M27 6v16M32 4v18M37 6v16" />
+            <path d="M8 26h48M12 26c0 16 8 24 20 24s20-8 20-24" />
+            <path d="M6 30c-2 0-2 6 4 6M58 30c2 0 2 6-4 6M20 48l-4 10M44 48l4 10" />
+          </g>
+          <text x="32" y="43" text-anchor="middle" font-size="12" fill="currentColor">爐</text>
+        </svg>
+        <p id="fortune"></p>
+      </section>
+
+      <dl class="info">
+        <div><dt class="accent">多空方位</dt><dd id="direction"></dd></div>
+        <div><dt class="accent">吉時</dt><dd id="hours"></dd></div>
+        <div><dt class="accent">沖</dt><dd id="chong"></dd></div>
+        <div><dt class="danger">煞</dt><dd id="sha"></dd></div>
+      </dl>
+
+      <h2>交易宜忌</h2>
+      <ul class="yiji">
+        <li><span class="badge yi">宜</span><span id="yi"></span></li>
+        <li><span class="badge ji">忌</span><span id="ji"></span></li>
+      </ul>
+
+      <h2>股市新聞</h2>
+      <ul id="news" class="news"><li class="placeholder">載入中…</li></ul>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

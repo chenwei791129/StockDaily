@@ -1,0 +1,80 @@
+:root {
+  --accent: #0068a8;
+  --danger: #c00;
+  --bg: #f7f7f7;
+  --band: #e4e4e4;
+  --surface: #fff;
+  --text: #222;
+  --muted: #444;
+  --dim: #666;
+  --faint: #767676;
+  --line: #ddd;
+  --rule: #999;
+  --control-bg: #666;
+  --control-fg: #fff;
+  --radius: 999px;
+  --font: -apple-system, 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  font-family: var(--font);
+  color: var(--text);
+  background: var(--bg);
+}
+
+body { margin: 0 auto; max-width: 480px; background: var(--surface); min-height: 100vh; }
+.accent { color: var(--accent); }
+.danger { color: var(--danger); }
+
+/* Equal side columns keep the title centred whatever sits in the left group. */
+.topbar {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+  padding: 8px 12px; background: var(--band); position: sticky; top: 0;
+}
+.topbar h1 { font-size: 1.15rem; margin: 0; }
+.topbar button, #today {
+  border: 0; border-radius: var(--radius); background: var(--control-bg); color: var(--control-fg); cursor: pointer;
+}
+.topbar button { width: 40px; height: 40px; font-size: 1.6rem; line-height: 1; }
+.topbar-left, .topbar-right { display: flex; gap: 8px; }
+.topbar-right { justify-self: end; }
+.pick { position: relative; display: flex; }
+#pick-open { display: grid; place-items: center; }
+#pick { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; opacity: 0; pointer-events: none; }
+/* The invisible native select over the icon keeps keyboard and screen-reader support. */
+.theme {
+  position: relative; display: grid; place-items: center; width: 40px; height: 40px;
+  border-radius: var(--radius); background: var(--control-bg); color: var(--control-fg);
+}
+.theme:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+#theme { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+#today { padding: 4px 14px; margin-top: 8px; background: var(--accent); }
+
+.date { text-align: center; padding: 16px 20px 8px; }
+/* Equal side columns keep the weekday centred over the day number. */
+.date-head { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; font-size: 1.1rem; }
+.date-head > :first-child { justify-self: start; }
+.date-head b { font-size: 2rem; font-weight: 400; }
+#weekday { font-size: 2rem; }
+.day { font-size: 7rem; line-height: 1.1; font-weight: 300; }
+.lunar { color: var(--muted); }
+
+.fortune { display: flex; align-items: center; gap: 12px; padding: 12px 24px; font-size: 1.15rem; }
+.fortune svg { color: var(--dim); }
+.fortune p { margin: 0; }
+
+.info { background: var(--band); margin: 0; padding: 4px 12px; font-size: 1.1rem; }
+.info div { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px dashed var(--rule); }
+.info dt { flex: none; }
+.info dd { margin: 0; }
+#direction { word-break: keep-all; }
+
+h2 { font-size: 1rem; margin: 0; padding: 10px 16px; background: var(--band); }
+.yiji { list-style: none; margin: 0; padding: 0; }
+.yiji li { display: flex; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--line); line-height: 1.6; font-size: 1.1rem; }
+.badge {
+  flex: none; display: inline-grid; place-items: center; width: 1.8em; height: 1.8em;
+  border: 2px solid currentColor; border-radius: 50%;
+}
+.badge.yi { color: var(--accent); }
+.badge.ji { color: var(--danger); }
+.placeholder { margin: 0; padding: 14px 16px; color: var(--faint); }
+.news { list-style: none; margin: 0; padding: 0; }
+.news a { display: block; padding: 12px 16px; border-bottom: 1px solid var(--line); color: inherit; line-height: 1.5; }

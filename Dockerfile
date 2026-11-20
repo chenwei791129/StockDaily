@@ -1,0 +1,22 @@
+# dist/ is platform-independent, so test and build natively instead of under
+# QEMU for every target platform (emulated arm64 is ~50x slower).
+FROM --platform=$BUILDPLATFORM oven/bun:1-alpine AS build
+WORKDIR /app
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
+COPY . .
+RUN bun test && bun run build
+
+# Bun server: serves dist/ and /api. TLS is terminated upstream.
+FROM oven/bun:1-alpine
+WORKDIR /app
+# NODE_ENV=production also turns off Bun.serve's detailed error pages.
+ENV NODE_ENV=production TZ=Asia/Taipei PORT=8080
+RUN apk add --no-cache tzdata
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile --production
+COPY src ./src
+COPY --from=build /app/dist ./dist
+USER 1000:1000
+EXPOSE 8080
+CMD ["bun", "src/server.ts"]

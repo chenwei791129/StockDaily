@@ -1,0 +1,23 @@
+{
+  "name": "stockdaily",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "start": "bun src/server.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "lunar-typescript": "^1.8.6"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.4.4",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "wrangler": "^4.158.0"
+  }
+}
