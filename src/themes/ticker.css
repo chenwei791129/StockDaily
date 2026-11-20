@@ -1,0 +1,58 @@
+/* 看盤風: a black quote board. Red is up and green is down, as on Taiwan's market; labels are amber. */
+html[data-theme='ticker'] {
+  color-scheme: dark;
+  --bg: #000;
+  --surface: #000;
+  --band: #101014;
+  --text: #f2f2f2;
+  --muted: #f5b83d;
+  --dim: #f5b83d;
+  --faint: #9a9a9a;
+  --line: #24242a;
+  --rule: #34343c;
+  --accent: #ff4d4f;
+  --danger: #2ecc71;
+  --control-bg: transparent;
+  --control-fg: #f5b83d;
+  --radius: 2px;
+  /* Latin and digits in monospace, like a quote terminal; CJK falls through to the system face. */
+  --font: ui-monospace, 'SF Mono', Menlo, Consolas, 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+}
+html[data-theme='ticker'] .topbar { background: #000; border-bottom: 2px solid; border-image: linear-gradient(90deg, var(--accent) 50%, var(--danger) 50%) 1; }
+html[data-theme='ticker'] .topbar h1 { color: var(--dim); letter-spacing: 4px; }
+html[data-theme='ticker'] :is(.topbar button, .theme) { box-shadow: inset 0 0 0 1px var(--dim); }
+html[data-theme='ticker'] #today { color: #fff; }
+
+/* The date sits on a chart: grid lines with a faint candlestick run behind the number. */
+html[data-theme='ticker'] .date {
+  padding-bottom: 14px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 480 200' preserveAspectRatio='none' fill='none' opacity='.28'%3E%3Cg stroke='%23ff4d4f'%3E%3Cpath stroke-width='2' d='M57 120v50M123 110v50M156 95v55M222 85v50M288 70v55M321 60v50M387 45v55M420 30v55'/%3E%3Cpath stroke-width='14' d='M57 130v25M123 118v30M156 105v30M222 92v30M288 78v34M321 66v30M387 52v34M420 38v32'/%3E%3C/g%3E%3Cg stroke='%232ecc71'%3E%3Cpath stroke-width='2' d='M24 130v50M90 125v50M189 100v45M255 90v50M354 65v50M453 35v45'/%3E%3Cpath stroke-width='14' d='M24 140v30M90 135v30M189 108v25M255 100v28M354 74v26M453 44v22'/%3E%3C/g%3E%3C/svg%3E") center bottom / 100% 78% no-repeat,
+    repeating-linear-gradient(0deg, transparent 0 39px, var(--line) 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 59px, var(--line) 59px 60px);
+}
+/* The weekday reads like a limit-up tag: white on solid red. */
+html[data-theme='ticker'] #weekday { padding: 0 10px; background: var(--accent); color: #fff; font-size: 1.5rem; }
+html[data-theme='ticker'] .day { margin-top: 8px; font-weight: 700; letter-spacing: -2px; text-shadow: 0 0 24px rgb(255 77 79 / 0.55), 0 2px 0 #000; }
+html[data-theme='ticker'] .day::after { content: '▲'; content: '▲' / ''; font-size: 0.22em; vertical-align: 0.9em; margin-left: 6px; }
+html[data-theme='ticker'] .lunar { text-shadow: 0 0 6px #000, 0 0 6px #000; }
+
+html[data-theme='ticker'] .fortune { margin: 0 12px 12px; padding: 12px; background: var(--band); border-left: 3px solid var(--dim); }
+
+/* A quote table: fixed-width amber labels, solid row rules. */
+html[data-theme='ticker'] .info { background: #000; border-top: 1px solid var(--rule); }
+html[data-theme='ticker'] .info div { border-bottom: 1px solid var(--line); }
+html[data-theme='ticker'] .info dt { width: 4.5em; }
+html[data-theme='ticker'] .info dt.accent { color: var(--dim); }
+
+html[data-theme='ticker'] h2 { background: var(--band); color: var(--dim); letter-spacing: 2px; border-block: 1px solid var(--rule); }
+html[data-theme='ticker'] h2::before { content: '▍'; content: '▍' / ''; color: var(--accent); }
+
+/* 宜 and 忌 as limit-up and limit-down blocks. */
+html[data-theme='ticker'] .badge { border-radius: 2px; font-weight: 700; }
+html[data-theme='ticker'] .badge.yi { background: var(--accent); border-color: var(--accent); color: #fff; }
+html[data-theme='ticker'] .badge.ji { background: var(--danger); border-color: var(--danger); color: #03140a; }
+
+html[data-theme='ticker'] .news a { display: flex; gap: 8px; text-decoration: none; }
+html[data-theme='ticker'] .news a::before { content: '▸'; content: '▸' / ''; color: var(--dim); }
+html[data-theme='ticker'] .news a:hover { background: var(--band); }

@@ -4,6 +4,7 @@ import './themes/tech.css'
 import './themes/retro.css'
 import './themes/temple.css'
 import './themes/kuaikuai.css'
+import './themes/ticker.css'
 import { getAlmanac } from './almanac'
 import type { NewsLink } from './news'
 
